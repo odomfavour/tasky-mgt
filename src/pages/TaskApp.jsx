@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AddTaskModal from '../components/AddTaskModal';
 import { FaPlus } from 'react-icons/fa';
 import avatar from '../assets/avatarr.png';
@@ -7,7 +7,9 @@ import { BsCheck2All } from 'react-icons/bs';
 import SuccessModal from '../components/SuccessModal';
 
 const TaskApp = () => {
-  const [tasks, setTasks] = useState([]);
+  const storedTasks = localStorage.getItem('tasks');
+  const initialTasks = storedTasks ? JSON.parse(storedTasks) : [];
+  const [tasks, setTasks] = useState(initialTasks);
 
   // New state variables for editing
   const [editingTask, setEditingTask] = useState(false);
@@ -44,6 +46,18 @@ const TaskApp = () => {
 
   const currentDate = new Date();
   const dateToday = currentDate.toISOString().split('T')[0];
+  // Load tasks from localStorage on initial render
+  useEffect(() => {
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
+
+  // Save tasks to localStorage whenever tasks change
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <>
@@ -54,7 +68,22 @@ const TaskApp = () => {
           </h1>
           <div>
             {tasks.length > 0 && (
-              <h2 className='mb-5 font-semibold text-xl'>Tasks</h2>
+              <div className='flex justify-between items-center'>
+                <div>
+                  <h2 className='mb-3 font-semibold text-xl'>Tasks</h2>
+                  <p className='mb-3'>
+                    Click on the checkbok to mark task as completed
+                  </p>
+                </div>
+                <div>
+                  <button
+                    onClick={() => setTasks([])}
+                    className='text-blue-800 border-blue-800 border-2 hover:bg-blue-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center'
+                  >
+                    Clear Tasks
+                  </button>
+                </div>
+              </div>
             )}
             <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 mb-20'>
               {tasks.map((task) => (

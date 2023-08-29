@@ -14,6 +14,7 @@ const AddTaskModal = ({
   const [newTaskName, setNewTaskName] = useState('');
   const [newTaskDueDate, setNewTaskDueDate] = useState('');
   const [newTaskDesc, setNewTaskDesc] = useState('');
+  const currentDate = new Date().toISOString().split('T')[0];
 
   // Set initial values based on editingTask
   useEffect(() => {
@@ -26,19 +27,6 @@ const AddTaskModal = ({
 
   const addTask = (e) => {
     e.preventDefault();
-    // if (newTaskName && newTaskDueDate) {
-    //   const newTask = {
-    //     id: Date.now(), // Generate a unique ID
-    //     name: newTaskName,
-    //     desc: newTaskDesc,
-    //     dueDate: newTaskDueDate,
-    //     completed: false,
-    //   };
-    //   setTasks([...tasks, newTask]);
-    //   setNewTaskName('');
-    //   setNewTaskDueDate('');
-    //   handleClose();
-    // }
     if (newTaskName && newTaskDueDate) {
       if (editingTask) {
         // Update existing task
@@ -133,6 +121,7 @@ const AddTaskModal = ({
               <input
                 type='date'
                 className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+                min={currentDate}
                 value={newTaskDueDate}
                 onChange={(e) => setNewTaskDueDate(e.target.value)}
                 required
