@@ -68,7 +68,7 @@ const TaskApp = () => {
           </h1>
           <div>
             {tasks.length > 0 && (
-              <div className='flex justify-between items-center'>
+              <div className='flex justify-between md:items-center items-end md:flex-row flex-col mb-3'>
                 <div>
                   <h2 className='mb-3 font-semibold text-xl'>Tasks</h2>
                   <p className='mb-3'>
