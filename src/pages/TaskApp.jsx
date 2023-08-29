@@ -4,6 +4,7 @@ import { FaPlus } from 'react-icons/fa';
 import avatar from '../assets/avatarr.png';
 import EmptyState from '../components/EmptyState';
 import { BsCheck2All } from 'react-icons/bs';
+import SuccessModal from '../components/SuccessModal';
 
 const TaskApp = () => {
   const [tasks, setTasks] = useState([]);
@@ -13,10 +14,14 @@ const TaskApp = () => {
   const [taskToEdit, setTaskToEdit] = useState({});
   // modal
   const [showModal, setShowModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const closeModal = () => {
     setShowModal(false);
     setEditingTask(false);
+  };
+  const closeSuccessModal = () => {
+    setShowSuccessModal(false);
   };
 
   const markTaskAsComplete = (id) => {
@@ -54,9 +59,7 @@ const TaskApp = () => {
             <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 mb-20'>
               {tasks.map((task) => (
                 <div
-                  className={`drop-shadow-lg p-3 border border-grey rounded-md mb-5 relative flex flex-col justify-between ${
-                    task.dueDate < dateToday ? 'bg-red-200' : ''
-                  }`}
+                  className={`drop-shadow-lg p-3 border border-grey rounded-md mb-5 relative flex flex-col justify-between`}
                   key={task.id}
                 >
                   <div>
@@ -77,7 +80,16 @@ const TaskApp = () => {
                       </div>
                       <div className=''>
                         <h5 className='text-xs text-gray-500'>
-                          Due Date: {task.dueDate}
+                          Due Date:{' '}
+                          <span
+                            className={`${
+                              task.dueDate < dateToday
+                                ? 'text-red-500 font-bold'
+                                : ''
+                            }`}
+                          >
+                            {task.dueDate}
+                          </span>
                         </h5>
                       </div>
                     </div>
@@ -133,8 +145,10 @@ const TaskApp = () => {
             editingTask={editingTask}
             taskToEdit={taskToEdit}
             setEditingTask={setEditingTask}
+            setShowSuccessModal={setShowSuccessModal}
           />
         )}
+        {showSuccessModal && <SuccessModal handleClose={closeSuccessModal} />}
       </div>
       <div
         className='button-container lg:bottom-10 md:right-10 bottom-5 right-5 rounded-full border bg-blue-700 lg:w-20 lg:h-20 h-14 w-14  fixed flex justify-center items-center'

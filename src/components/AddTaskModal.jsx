@@ -9,6 +9,7 @@ const AddTaskModal = ({
   editingTask,
   taskToEdit,
   setEditingTask,
+  setShowSuccessModal,
 }) => {
   const [newTaskName, setNewTaskName] = useState('');
   const [newTaskDueDate, setNewTaskDueDate] = useState('');
@@ -65,6 +66,7 @@ const AddTaskModal = ({
         setTasks([...tasks, newTask]);
       }
       handleClose();
+      setShowSuccessModal(true);
     }
   };
   return (

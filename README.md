@@ -9,6 +9,6 @@ Currently, two official plugins are available:
 
 ## How to run this application locally
 
-- Clone this repository `git clone (link to repo)`
+- Clone this repository `git clone`[https://github.com/odomfavour/tasky-mgt.git](https://github.com/odomfavour/tasky-mgt.git)
 - run `npm install` in your terminal to install all the packages
 - run `npm run dev` and click on the link to open the browser
