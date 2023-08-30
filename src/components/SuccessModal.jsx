@@ -1,5 +1,6 @@
+import propTypes from 'prop-types';
 import { BsCheckCircleFill, BsXLg } from 'react-icons/bs';
-// eslint-disable-next-line react/prop-types
+
 const SuccessModal = ({ handleClose }) => {
   return (
     <div
@@ -32,4 +33,7 @@ const SuccessModal = ({ handleClose }) => {
   );
 };
 
+SuccessModal.propTypes = {
+  handleClose: propTypes.func,
+};
 export default SuccessModal;

@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { BsXLg } from 'react-icons/bs';
 
@@ -16,7 +16,7 @@ const AddTaskModal = ({
   const [newTaskDesc, setNewTaskDesc] = useState('');
   const currentDate = new Date().toISOString().split('T')[0];
 
-  // Set initial values based on editingTask
+  // Set initial values when editing Task
   useEffect(() => {
     if (editingTask) {
       setNewTaskName(taskToEdit.name);
@@ -140,6 +140,16 @@ const AddTaskModal = ({
       </div>
     </div>
   );
+};
+
+AddTaskModal.propTypes = {
+  editingTask: propTypes.boolean,
+  taskToEdit: propTypes.object,
+  tasks: propTypes.array,
+  setTasks: propTypes.func,
+  handleClose: propTypes.func,
+  setEditingTask: propTypes.func,
+  setShowSuccessModal: propTypes.func,
 };
 
 export default AddTaskModal;

@@ -11,7 +11,6 @@ const TaskApp = () => {
   const initialTasks = storedTasks ? JSON.parse(storedTasks) : [];
   const [tasks, setTasks] = useState(initialTasks);
 
-  // New state variables for editing
   const [editingTask, setEditingTask] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState({});
   // modal
@@ -46,6 +45,7 @@ const TaskApp = () => {
 
   const currentDate = new Date();
   const dateToday = currentDate.toISOString().split('T')[0];
+
   // Load tasks from localStorage on initial render
   useEffect(() => {
     const storedTasks = localStorage.getItem('tasks');
@@ -54,7 +54,7 @@ const TaskApp = () => {
     }
   }, []);
 
-  // Save tasks to localStorage whenever tasks change
+  // Save tasks to localStorage on task change
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
